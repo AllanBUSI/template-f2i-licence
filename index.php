@@ -50,7 +50,10 @@
             required>
         </div>
       </div>
-      <button type="submit" class="col-md-2 offset-md-10 btn btn-primary">M'inscrire</button>
+      <div class="row">
+        <a href="/login.php" class="col-md-3"> Me connecter a mon compte</a>
+        <button type="submit" class="col-md-3 offset-md-6 btn btn-primary">Submit</button>
+      </div>
     </form>
   </div>
 

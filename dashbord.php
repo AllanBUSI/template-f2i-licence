@@ -48,7 +48,7 @@ if(empty($date) || strlen($date) > 20) {
   die();
 }
 
-if(strlen($mdp1) < 12 || $mdp1 != $mdp2 || strlen($mdp1) > 255 ) {
+if(strlen($mdp1) < 2 || $mdp1 != $mdp2 || strlen($mdp1) > 255 ) {
   echo "erreur mdp";
   die();
 }
@@ -60,13 +60,27 @@ if ($rechercheEmail == false) {
   die();
 }
 
-$email = $rechercheEmail->fetchAll();
+$emailTest = $rechercheEmail->fetchAll();
 
-if (count($email) > 0) {
+if (count($emailTest) > 0) {
   echo "L'utilisateur est déjà inscrit";
   die();
 }
 
 $newPassword = password_hash($mdp1, PASSWORD_ARGON2ID);
 
-var_dump($newPassword);
+$insert = Database::Insert('user',[
+  $nom,
+  $prenom,
+  $date,
+  $newPassword,
+  $email,
+  $phone
+]);
+
+if ($insert == false) {
+  echo "un problème a eu lieu lors de l'insertion";
+  die();
+}
+
+header('Location:  http://localhost/index.php');
