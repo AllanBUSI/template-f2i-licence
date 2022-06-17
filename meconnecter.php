@@ -1,4 +1,5 @@
 <?php 
+session_start();
 
 require_once 'Database.php';
 
@@ -26,10 +27,11 @@ if ($rechercheEmail == false) {
   die();
 }
 
-password_verify($mdp,$rechercheEmail->fetchAll()[0]['password']);
-
-if ($mdp) {
+$user = $rechercheEmail->fetchAll();
+if (password_verify($mdp,$user[0]['password'])) {
   echo 'Le mot de passe est valide !';
+  $_SESSION['user'] = $user;
+  header('Location: espace.php');
 } else {
   echo 'Le mot de passe est invalide.';
 }
